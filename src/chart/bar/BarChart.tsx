@@ -1,7 +1,6 @@
 import { ResponsiveBar } from '@nivo/bar';
 import React, { useEffect } from 'react';
 import { NoDrawableDataErrorMessage } from '../../component/editor/CodeViewerComponent';
-import { extensionEnabled } from '../../extensions/ExtensionUtils';
 import { evaluateRulesOnDict } from '../../extensions/styling/StyleRuleEvaluator';
 import { ChartProps } from '../Chart';
 import { convertRecordObjectToString, recordToNative } from '../ChartUtils';
@@ -93,7 +92,7 @@ const NeoBarChart = (props: ChartProps) => {
     const valueScale = (settings["valueScale"]) ? settings["valueScale"] : 'linear';
     const minValue = (settings["minValue"]) ? settings["minValue"] : 'auto';
     const maxValue = (settings["maxValue"]) ? settings["maxValue"] : 'auto';
-    const styleRules = extensionEnabled(props.extensions, 'styling') && props.settings && props.settings.styleRules ? props.settings.styleRules : [];
+    const styleRules = props.settings && props.settings.styleRules ? props.settings.styleRules : [];
 
     // Compute bar color based on rules - overrides default color scheme completely.
     const getBarColor = (bar) => {

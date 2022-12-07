@@ -242,7 +242,7 @@ export const loadApplicationConfigThunk = () => async (dispatch: any, getState: 
         ssoEnabled: false,
         ssoDiscoveryUrl: "http://example.com",
         standalone: false,
-        standaloneProtocol: "neo4j",
+        standaloneProtocol: "neo4j+s",
         standaloneHost: "localhost",
         standalonePort: "7687",
         standaloneDatabase: "neo4j",
@@ -256,6 +256,14 @@ export const loadApplicationConfigThunk = () => async (dispatch: any, getState: 
         // Config may not be found, for example when we are in Neo4j Desktop.
         console.log("No config file detected. Setting to safe defaults.");
     }
+
+    config['standaloneHost'] = process.env.NEO4J_URI; 
+    config['standalonePassword'] = process.env.NEO4J_PASSWORD;
+    config['standaloneUsername'] = process.env.NEO4J_USER; 
+    
+    
+
+    //console.log("Settign password here ", config['standalonePassword'],  config['standaloneHost'] , config['standaloneUsername']);
 
     try {
         // Parse the URL parameters to see if there's any deep linking of parameters.

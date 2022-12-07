@@ -4,7 +4,6 @@ import { ChartProps } from '../Chart';
 import { categoricalColorSchemes } from '../../config/ColorConfig';
 import { valueIsArray, valueIsNode, valueIsRelationship, valueIsPath, valueIsObject } from '../../chart/ChartUtils';
 import { MapContainer, Polyline, Popup, TileLayer, Tooltip } from "react-leaflet";
-import { HeatmapLayer } from 'react-leaflet-heatmap-layer-v3';
 import Marker from 'react-leaflet-enhanced-marker';
 import MarkerClusterGroup from 'react-leaflet-cluster';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
@@ -280,19 +279,7 @@ const NeoMapChart = (props: ChartProps) => {
         });
     }
 
-    function createHeatmap() {
-        // Create Heatmap layer to add on top of the map
-        let points = data.nodes.filter(node => node.pos && !isNaN(node.pos[0]) && !isNaN(node.pos[1])).map((node, i) =>
-            [node.pos[0], node.pos[1], intensityProp == "" ? 1 : extractIntensityProperty(node)]
-        );
-        return <HeatmapLayer
-                fitBoundsOnLoad
-                fitBoundsOnUpdate
-                points={points}
-                longitudeExtractor={m => m[1]}
-                latitudeExtractor={m => m[0]}
-                intensityExtractor={m => parseFloat(m[2])} />
-    }
+
 
     function extractIntensityProperty(node) {
         // Extract the intensity property from a node.
