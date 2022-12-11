@@ -40,11 +40,11 @@ const NeoBarChart = (props: ChartProps) => {
             if (!selection || !selection['index'] || !selection['value']) {
                 return data;
             }
-            const index = convertRecordObjectToString(row.get(selection['index']));
+            const index = convertRecordObjectToString(row._fields[row._fieldLookup[selection['index']]][0]);
             const idx = data.findIndex(item => item.index === index)
 
-            const key = selection['key'] !== "(none)" ? recordToNative(row.get(selection['key'])) : selection['value'];
-            const value = recordToNative(row.get(selection['value']));
+            const key = selection['key'] !== "(none)" ? recordToNative(row._fields[row._fieldLookup[selection['key']]][0]) : selection['value'];
+            const value = recordToNative(row._fields[row._fieldLookup[selection['value']]][0]);
 
             if (isNaN(value)) {
                 return data;
