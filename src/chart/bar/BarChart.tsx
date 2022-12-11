@@ -40,11 +40,11 @@ const NeoBarChart = (props: ChartProps) => {
             if (!selection || !selection['index'] || !selection['value']) {
                 return data;
             }
-            const index = convertRecordObjectToString(row.get(selection['index']));
+            const index = convertRecordObjectToString(row._fields[row._fieldLookup[selection['index']]]);
             const idx = data.findIndex(item => item.index === index)
 
-            const key = selection['key'] !== "(none)" ? recordToNative(row.get(selection['key'])) : selection['value'];
-            const value = recordToNative(row.get(selection['value']));
+            const key = selection['key'] !== "(none)" ? recordToNative(row._fields[row._fieldLookup[selection['key']]]) : selection['value'];
+            const value = recordToNative(toNumber(row._fields[row._fieldLookup[selection['value']]]));
 
             if (isNaN(value)) {
                 return data;
@@ -94,6 +94,16 @@ const NeoBarChart = (props: ChartProps) => {
     const maxValue = (settings["maxValue"]) ? settings["maxValue"] : 'auto';
     const styleRules = props.settings && props.settings.styleRules ? props.settings.styleRules : [];
 
+
+    function toNumber({ low, high }) {
+        let res = high
+      
+        for (let i = 0; i < 32; i++) {
+          res *= 2
+        }
+      
+        return low + res
+      }
     // Compute bar color based on rules - overrides default color scheme completely.
     const getBarColor = (bar) => {
         const data = {}

@@ -25,10 +25,10 @@ const NeoPieChart = (props: ChartProps) => {
                 return data;
             }
 
-            const index = convertRecordObjectToString(row.get(selection['index']));
+            const index = convertRecordObjectToString(row._fields[row._fieldLookup[selection['index']]]);
             const idx = data.findIndex(item => item.index === index)
-            const key = selection['key'] !== "(none)" ? recordToNative(row.get(selection['key'])) : selection['value'];
-            const value = recordToNative(row.get(selection['value']));
+            const key = selection['key'] !== "(none)" ? recordToNative(row._fields[row._fieldLookup[selection['key']]]) : selection['value'];
+            const value = recordToNative(toNumber(row._fields[row._fieldLookup[selection['value']]]));
 
             if (isNaN(value)) {
                 return data;
@@ -80,6 +80,17 @@ const NeoPieChart = (props: ChartProps) => {
     const legend = (settings["legend"]) ? settings["legend"] : false;
     const colorScheme = (settings["colors"]) ? settings["colors"] : 'set2';
     const styleRules = settings && settings.styleRules ? settings.styleRules : [];
+
+
+    function toNumber({ low, high }) {
+        let res = high
+      
+        for (let i = 0; i < 32; i++) {
+          res *= 2
+        }
+      
+        return low + res
+      }
 
     // Compute slice color based on rules - overrides default color scheme completely.
     const getSliceColor = (slice) => {

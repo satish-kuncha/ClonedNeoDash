@@ -63,15 +63,14 @@ module.exports = {
             },
             shared: {
                 react: {
-                    shareKey: "react",
-                    import: 'react',
-                    shareScope: "default",
                     singleton: true,
-                    requiredVersion: deps.react,
+                    version: '0',
+                    requiredVersion: false,
                   },
                   'react-dom': {
                     singleton: true,
-                    requiredVersion: deps['react-dom'],
+                    version: '0',
+                    requiredVersion: false,
                   },
             },
           })
