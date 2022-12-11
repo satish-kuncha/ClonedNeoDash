@@ -3,7 +3,7 @@
     "ssoDiscoveryUrl": "https://example.com",
     "standalone": false,
     "standaloneProtocol": "neo4j+s",
-    "standaloneHost": "434d8312.databases.neo4j.io",
+    "standaloneHost": "44d.neo4j.io",
     "standalonePort": "7687",
     "standaloneDatabase": "neo4j",
     "standaloneDashboardName": "_Neodash_Dashboard",
